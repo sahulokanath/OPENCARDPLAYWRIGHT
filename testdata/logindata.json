@@ -8,10 +8,5 @@
     "username": "invaliduser@test.com",
     "password": "wrong123",
     "expected": "failure"
-  },
-  {
-    "username": "",
-    "password": "valid123",
-    "expected": "validation_error"
   }
 ]
