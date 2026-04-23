@@ -6,9 +6,9 @@ import { TestConfig } from '../test.config';
 import { HomePage } from '../pages/HomePage';
 
 // Load JSON test data
-const jsonTestData = DataProvider.getTestDataFromJson();
+const testData = DataProvider.getTestDataFromJson();
 
-for (const data of jsonTestData) {
+for (const data of testData) {
 
     test(`Login Test - ${data.username} - ${data.expected} @datadriven`, async ({ page }) => {
 
@@ -20,7 +20,7 @@ for (const data of jsonTestData) {
         await homePage.clickLogin();
 
         const loginPage = new LoginPage(page);
-        await loginPage.login(data.username, data.password); // ✅ FIXED
+        await loginPage.login(data.username, data.password);
 
         if (data.expected.toLowerCase() === 'success') {
             const myAccountPage = new MyAccountPage(page);
