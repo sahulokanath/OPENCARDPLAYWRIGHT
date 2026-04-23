@@ -4,12 +4,15 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: windows-latest
 
-    
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
@@ -18,18 +21,18 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: lts/*
-    
+
     - name: Install dependencies
-      run: npm ci
+      run: |
+        if (!(Test-Path "package-lock.json")) { npm install } else { npm ci }
+      shell: pwsh
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      #run: npx playwright test
-      #run: npx playwright test --grep "@sanity"
       run: npm run test:sanity
-    
+
     - name: Upload Playwright HTML Report
       if: always()
       uses: actions/upload-artifact@v4
