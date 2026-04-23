@@ -23,9 +23,7 @@ jobs:
         node-version: lts/*
 
     - name: Install dependencies
-      run: |
-        if (!(Test-Path "package-lock.json")) { npm install } else { npm ci }
-      shell: pwsh
+      run: npm ci
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
